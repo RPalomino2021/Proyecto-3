@@ -1,0 +1,58 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    image: mongo:latest
+    volumes:
+      - "mongodb-data:/data/db"
+
+  config-server:
+    build:
+      context: ./config-server
+    ports:
+      - 8081:8081
+    restart: always
+    container_name: config-server
+    hostname: config-server
+    networks:
+      - app
+
+  service-discovery:
+    build:
+      context: ./service-discovery
+    ports:
+      - 8761:8761
+    restart: always
+    container_name: service-discovery
+    hostname: service-discovery
+    networks:
+      - app
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - 8088:8088
+    restart: always
+    container_name: api-gateway
+    hostname: api-gateway
+    networks:
+      - app
+
+  micro01-client:
+    build:
+      context: ./micro01-client
+    ports:
+      - 8091:8091
+    restart: always
+    container_name: micro01-client
+    hostname: micro01-client
+    networks:
+      - app
+
+volumes:
+  mongodb-data: {}
+networks:
+  app:

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: micro01-client
+  cloud:
+    config:
+      uri: http://localhost:8081
+      username: root
+      password: s3cr3t0
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/webflux
+  thymeleaf:
+    reactive:
+      max-chunk-size: 1024
